@@ -4,15 +4,15 @@ function [ output_args ] = FN_std_PPS_properties( input_args )
 max_dist=0.9;
 deltaT=0.5;
 
-vT1=-0.25;
-sigma_v1_arr=[0.025:0.025:0.3];
+vT=-0.25;
+sigma_v_arr=[0.025:0.025:0.3];
 
 
-fp_par=1;
-fn=[1,2,5,10,17.5,25,50,75,100];
+FP=1;
+FNs=[1,2,5,10,17.5,25,50,75,100];
 
 
-r1=2;
+r=2;
 
 sigma_x=0.0;
 
@@ -21,27 +21,27 @@ xTs=0:0.025:max_dist;
 beginning_threshold=0.01;
 
 number_samples=1000;
-beginnings=-1*ones(numel(fn),numel(sigma_v1_arr));
-slopes=-1*ones(numel(fn),numel(sigma_v1_arr));
+beginnings=-1*ones(numel(FNs),numel(sigma_v_arr));
+slopes=-1*ones(numel(FNs),numel(sigma_v_arr));
 
-for i=1:numel(fn)
-    fn_par=fn(i)
-    for j=1:numel(sigma_v1_arr)
-       sigma_v1 = sigma_v1_arr(j);
-       pred_tact_acts_means=get_PPS_impact_means_distance(vT1, sigma_v1, fp_par, fn_par, r1, number_samples, deltaT, sigma_x, xTs);
+for i=1:numel(FNs)
+    FN=FNs(i)
+    for j=1:numel(sigma_v_arr)
+       sigma_v = sigma_v_arr(j);
+       pred_tact_acts_means=get_PPS_impact_means_distance(vT, sigma_v, FP, FN, r, number_samples, deltaT, sigma_x, xTs);
        beginning_idx = find_PPS_beginning(pred_tact_acts_means,beginning_threshold);
        beginnings(i,j)=xTs(beginning_idx);
        slopes(i,j)=calculate_slope(xTs,pred_tact_acts_means);
     end  
     
 end
-surf(sigma_v1_arr,fn,beginnings)
+surf(sigma_v_arr,FNs,beginnings)
 colorbar
 xlabel('\sigma_v')
 ylabel('FN')
 zlabel('beginning (in m)')
 figure
-surf(sigma_v1_arr,fn,-slopes)
+surf(sigma_v_arr,FNs,-slopes)
 colorbar
 xlabel('\sigma_v')
 ylabel('FN')
