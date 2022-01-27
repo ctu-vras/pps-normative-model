@@ -1,14 +1,15 @@
 function pred_impacts=PPS_prediction_bayes(xT_hat, sigma_x, mean_displacement, sigma_displacement, impact_decisions, FP, FN, r, body_pos)
 %PPS_PREDICTION Summary of this function goes here
-%   The function returns prediction with the minimal loss
+%   The function implements future position estimation 
+% which is followed by calculation of the Bayesian decision/prediction.
+% The prediction is returned.
 
 pred_impacts=[];
-% probs=[];
 
 
 pred_impact=predict_impact(xT_hat, sigma_x, mean_displacement, sigma_displacement, impact_decisions, FP, FN, r, body_pos);
 pred_impacts=[pred_impacts,pred_impact];
-%     probs=[probs,get_P_tact_given_x(pos_mean,tact_pos)];
+
 
 
 end
@@ -28,14 +29,12 @@ function impact=predict_impact(xT_hat, sigma_x, mean_displacement, sigma_displac
 %decision with minimal expected loss is selected
 min_val=1000000;
 min_dec=-1;
-% val_arr=[];
     impact_prob=get_impact_prob(xT_hat, sigma_x, mean_displacement, sigma_displacement, body_pos);
     hit_state=1;
     for impact_decision=impact_decisions    
     val=impact_prob*calc_loss(hit_state, impact_decision, FP, FN, r)...
         +(1-impact_prob)*calc_loss(hit_state-1, impact_decision, FP, FN, r);
-%     val_arr=[val_arr,val];
-    if val<min_val%+eps
+    if val<min_val
         min_val=val;
         min_dec=impact_decision;
     end
