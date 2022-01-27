@@ -1,6 +1,6 @@
 function [ output_args ] = calculate_PPS( input_args )
 %calculate_PPS Summary of this function goes here
-%   Calculate and plot PPS for distances xTs. 
+%   Calculate and plot predictions for distances xTs. 
 % The figure contains means and 25th/75th percentils.  
 
 %maximal distance for which a prediction is calculated
