@@ -1,5 +1,5 @@
 function pred_impacts=PPS_prediction_bayes(xT_hat, sigma_x, mean_displacement, sigma_displacement, impact_decisions, FP, FN, r, body_pos)
-%PPS_PREDICTION Summary of this function goes here
+%PPS_prediction_bayes Summary of this function goes here
 %   The function implements future position estimation 
 % which is followed by calculation of the Bayesian decision/prediction.
 % The prediction is returned.
