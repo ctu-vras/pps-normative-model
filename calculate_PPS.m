@@ -4,7 +4,7 @@ function [ output_args ] = calculate_PPS( input_args )
 % The figure contains means and 25th/75th percentils.  
 
 %maximal distance for which a prediction is calculated
-max_dist=60;
+max_dist=100;
 body_pos=0;
 
 %experiment parameters (baseline parameters)
