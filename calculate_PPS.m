@@ -9,7 +9,7 @@ body_pos=0;
 
 %experiment parameters (baseline parameters)
 vT=-25;
-sigma_v=5;
+sigma_v=20;
 sigma_x=2.5;
 
 FN=5;
@@ -30,7 +30,7 @@ sigma_displacement=deltaT*sigma_v;
 
 figure
 %positions for which predictions are calculated
-xTs=0:2.5:max_dist;
+xTs=0:5:max_dist;
 
 
 %init
