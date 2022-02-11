@@ -10,5 +10,5 @@ stimuli from the body. Moreover, 25th and 75th percentils are plotted. Feel free
 This function implements future position estimation which is followed by calculation of the Bayesian decision/prediction.
 
 ## FN_std_PPS_properties.m
-Plot S1 Fig.
+Plot S4 Fig.
 
