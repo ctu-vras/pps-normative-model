@@ -1,11 +1,11 @@
 function [ output_args ] = FN_std_PPS_properties( input_args )
 %FN_STD_PPS_PROPERTIES Summary of this function goes here
 %   Plot S1 Fig 
-max_dist=0.9;
-deltaT=0.5;
+max_dist=200;
+deltaT=1.0;
 
-vT=-0.25;
-sigma_v_arr=[0.025:0.025:0.3];
+vT=-25;
+sigma_v_arr=[2.5:2.5:30];
 
 
 FP=1;
@@ -16,7 +16,7 @@ r=2;
 
 sigma_x=0.0;
 
-xTs=0:0.025:max_dist;
+xTs=0:1:max_dist;
 
 beginning_threshold=0.01;
 
@@ -35,17 +35,18 @@ for i=1:numel(FNs)
     end  
     
 end
+figure
 surf(sigma_v_arr,FNs,beginnings)
 colorbar
-xlabel('\sigma_v')
+xlabel('\sigma_v (in cm/s)')
 ylabel('FN')
-zlabel('beginning (in m)')
+zlabel('beginning (in cm)')
 figure
 surf(sigma_v_arr,FNs,-slopes)
 colorbar
-xlabel('\sigma_v')
+xlabel('\sigma_v (in cm/s)')
 ylabel('FN')
-zlabel('slope')
+zlabel('slope (in cm^{-1})')
 end
 
 function beginning_idx = find_PPS_beginning(pred_tact_acts_means,beginning_threshold)
@@ -95,7 +96,8 @@ position_GT_counter=1;
 
 
 for xT=xTs
-xT_hat=xT+sigma_x.*randn(number_samples,1);
+%xT_hat=xT+sigma_x.*randn(number_samples,1);
+xT_hat=max(0.1,xT+sigma_x.*randn(number_samples,1));
 vT_hat=vT+sigma_v.*randn(number_samples,1);
 
 mean_displ=deltaT.*vT_hat;
