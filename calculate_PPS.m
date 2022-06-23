@@ -40,7 +40,8 @@ position_GT_counter=1;
 
 for xT=xTs
 %point estimates
-xT_hat=xT+sigma_x.*randn(number_samples,1);
+%prevent estimation of the object inside the body
+xT_hat=max(0.1,xT+sigma_x.*randn(number_samples,1));
 vT_hat=vT+sigma_v.*randn(number_samples,1);
 
 %displacement means
