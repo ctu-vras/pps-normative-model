@@ -1,8 +1,8 @@
 function [ output_args ] = FN_std_PPS_properties( input_args )
 %FN_STD_PPS_PROPERTIES Summary of this function goes here
 %   Plot S1 Fig 
-max_dist=200;
-deltaT=1.0;
+max_dist=100;
+deltaT=0.5;
 
 vT=-25;
 sigma_v_arr=[2.5:2.5:30];
