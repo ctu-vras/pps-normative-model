@@ -1,5 +1,8 @@
 # pps-normative-model
-A normative model of peripersonal space as impact prediction. The model is implemented in Matlab.
+This repository stores code related to the article **A normative model of peripersonal space encoding as performing impact prediction.** by Z. Straka, J.-P. Noel and M. Hoffmann [link](https://doi.org/10.1371/journal.pcbi.1010464). The model is implemented in Matlab.
+
+**Citation:** Straka Z, Noel J-P, Hoffmann M (2022) A normative model of peripersonal space encoding as performing impact prediction. PLoS Comput Biol 18(9): e1010464. https://doi.org/10.1371/journal.pcbi.1010464
+
 
 ## calculate_PPS.m
 Run this code to get a figure with dependency between the mean of 1000 predicted
