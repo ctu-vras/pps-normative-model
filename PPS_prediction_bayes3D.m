@@ -4,13 +4,8 @@ function pred_impacts=PPS_prediction_bayes3D(xT_hat, sigma_x, mean_displacement,
 % The prediction is returned.
 
 pred_impacts=[];
-
-
 pred_impact=predict_impact(xT_hat, sigma_x, mean_displacement, sigma_displacement, impact_decisions, FP, FN, body_size);
 pred_impacts=[pred_impacts,pred_impact];
-
-
-
 end
 
 function prob=get_impact_prob(xT_hat, sigma_x, mean_displacement, sigma_displacement, body_size)
@@ -39,6 +34,7 @@ for i=1:num_samples
     continue
     end
     
+    %check if the new position is within the hit area or not
     if ((xT_hat(2) + 0.5*body_size(1))/xT_hat(1))*new_pos_sample_x-0.5*body_size(1) <= new_pos_sample_y ...
             && new_pos_sample_y <= ((xT_hat(2) - 0.5*body_size(1))/xT_hat(1))*new_pos_sample_x+0.5*body_size(1) ...
        && ((xT_hat(3) + 0.5*body_size(2))/xT_hat(1))*new_pos_sample_x-0.5*body_size(2) <= new_pos_sample_z ...
@@ -50,17 +46,12 @@ for i=1:num_samples
 end
 
 prob=positive/(positive+negative);
-
-
-
 end
-
 
 function loss=calc_loss(impact_state, impact_decision, FP, FN, r)
     loss=FP*(max(0,impact_decision-impact_state).^r)+...
     FN*(max(0,impact_state-impact_decision).^r);
 end
-
 
 function impact=predict_impact(xT_hat, sigma_x, mean_displacement, sigma_displacement, impact_decisions, FP, FN, body_size)
 %decision with minimal expected loss is selected

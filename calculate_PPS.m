@@ -24,6 +24,7 @@ number_samples=1000;
 impact_decisions=[0:0.05:1];
 sigma_displacement=deltaT*sigma_v;
 
+figure
 %positions for which predictions are calculated
 xTs=0:5:max_dist;
 

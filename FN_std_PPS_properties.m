@@ -1,29 +1,25 @@
 function [ output_args ] = FN_std_PPS_properties( input_args )
 %FN_STD_PPS_PROPERTIES Summary of this function goes here
 %   Plot S1 Fig 
+
+%experiment params
 max_dist=100;
 deltaT=0.5;
-
 vT=-25;
 sigma_v_arr=[2.5:2.5:30];
-
-
 FP=1;
 FNs=[1,2,5,10,17.5,25,50,75,100];
-
-
 r=2;
-
 sigma_x=0.0;
-
 xTs=0:1:max_dist;
-
 beginning_threshold=0.01;
 
 number_samples=1000;
+%init
 beginnings=-1*ones(numel(FNs),numel(sigma_v_arr));
 slopes=-1*ones(numel(FNs),numel(sigma_v_arr));
 
+%go over all values of FN and sigma_v
 for i=1:numel(FNs)
     FN=FNs(i)
     for j=1:numel(sigma_v_arr)
@@ -33,8 +29,8 @@ for i=1:numel(FNs)
        beginnings(i,j)=xTs(beginning_idx);
        slopes(i,j)=calculate_slope(xTs,pred_tact_acts_means);
     end  
-    
 end
+
 figure
 surf(sigma_v_arr,FNs,beginnings)
 colorbar
@@ -82,27 +78,21 @@ function slope=calculate_slope(xTs,pred_impact_means)
 end
 
 function pred_impact_means=get_PPS_impact_means_distance(vT, sigma_v, FP, FN, r, number_samples, deltaT, sigma_x, xTs)
-%get_PPS_bayes_means_distance Summary of this function goes here
-%  for each distance it returns mean predicted impact
+%get_PPS_bayes_means_distance for each distance it returns 
+%mean predicted impact
 body_pos=0;
-
 impact_decisions=[0:0.05:1];
-
 sigma_displacement=deltaT*sigma_v;
 
 %inits
 pred_impact_means=-1*ones(numel(xTs),1);
 position_GT_counter=1;
 
-
 for xT=xTs
-%xT_hat=xT+sigma_x.*randn(number_samples,1);
+%the experiment is repeated number_samples times with fixed xT
 xT_hat=max(0.1,xT+sigma_x.*randn(number_samples,1));
 vT_hat=vT+sigma_v.*randn(number_samples,1);
-
 mean_displ=deltaT.*vT_hat;
-
-
 pred_impacts_arr=-1*ones(number_samples,1);
 
 for i=1:number_samples
@@ -111,7 +101,6 @@ pred_impacts_arr(i)=pred_impact;
 end
 
 pred_impact_means(position_GT_counter)=mean(pred_impacts_arr);
-
 position_GT_counter=position_GT_counter+1;
 end
 
